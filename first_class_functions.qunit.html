@@ -11,23 +11,24 @@
 <body>
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
-
-    <script src="first_class_functions.js"></script>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="applicative_programming.js"></script>
 
     <script>
 
-    QUnit.test("functions everywhere", function(assert) {
+    QUnit.test("Map, Reduce, Filter", function(assert) {
 
-        assert.strictEqual(vFortyTwo, fnFortyTwo(), "Function in variable is the same as a value in a variable");
-        assert.strictEqual(aFortyTwo[0], aFortyTwo[1](), "Function in array is the same as value in array");
-        assert.strictEqual(oFortyTwo.number, oFortyTwo.fun(), "Function in object is the same as value in object");
-        assert.strictEqual(42 + (function() {
-            return 42;
-        })(), 84, "Functions can be created on the fly");
-        assert.strictEqual(fnWeirdAdd(42, function() {
-            return 42;
-        }), 84, "Functions can be passed to functions");
-        assert.strictEqual(fnFortyTwoFn()(), fnFortyTwo(), "Functions can return functions");
+        var aNums = [1,2,3,4,5],
+            aDoubleNums = [2,4,6,8,10],
+            aEvenNums = [2,4];
+
+        var vSum = 15,
+            vAverage = 3;
+
+        assert.deepEqual(doubleAll(aNums), aDoubleNums, "Doubled the values with _.map");
+        assert.strictEqual(sumArray(aNums), vSum, "Sum of an array with _.reduce");
+        assert.strictEqual(averageArray(aNums), vAverage, "Average of an array with _.reduce");
+        assert.deepEqual(onlyEven(aNums), aEvenNums, "Only even values with _.filter");
 
     });
     </script>
