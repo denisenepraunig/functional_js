@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>First class functions QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="first_class_functions.js"></script>
+
+    <script>
+    /*var myList;
+
+        QUnit.module("First class function Testing", {
+
+            beforeEach: function() {
+                myList = new DoubleLinkedList();
+            },
+            afterEach: function() {
+                myList = null;
+            }
+        });*/
+
+
+    QUnit.test("functions everywhere", function(assert) {
+
+        assert.strictEqual(vFortyTwo, fnFortyTwo(), "Function in variable is the same as a value in a variable");
+        assert.strictEqual(aFortyTwo[0], aFortyTwo[1](), "Function in array is the same as value in array");
+        assert.strictEqual(oFortyTwo.number, oFortyTwo.fun(), "Function in object is the same as value in object");
+        assert.strictEqual(42 + (function() {
+            return 42;
+        })(), 84, "Functions can be created on the fly");
+        assert.strictEqual(fnWeirdAdd(42, function() {
+            return 42;
+        }), 84, "Functions can be passed to functions");
+        assert.strictEqual(fnFortyTwoFn()(), fnFortyTwo(), "Functions can return functions");
+
+    });
+    </script>
+</body>
+
+</html>
