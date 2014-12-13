@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Collection-Centric Programming QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="collection_centric.js"></script>
+
+    <script>
+
+    QUnit.test("Collection-Centric Programming", function(assert) {
+
+        var oObj = { a: 1, b: 2},
+            aArr = [1,2];
+
+        var aValues = [1,2],
+            aKeyValues = [['a', 1],['b',2]],
+            aKeyValuesCollection = [['a', 1, ['a', 'b']],['b',2, ['a', 'b']]];
+
+        assert.deepEqual(getValues(oObj), aValues, "Get values with _.map and _.identity from an object");
+        assert.deepEqual(getValues(aArr), aValues, "Get values with _.map and _.identity - also works for arrays, since they are collections");
+        assert.deepEqual(getKeyValues(oObj), aKeyValues, "Get key values of an object with _.map");
+        assert.deepEqual(getKeyValuesCollection(oObj), aKeyValuesCollection);
+
+    });
+    </script>
+</body>
+
+</html>
