@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Applicative Programming QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <script src="applicative_programming.js"></script>
+
+    <script>
+
+    QUnit.test("Applicative Programming", function(assert) {
+
+        var aNums = [1, 2, 3, 4, 5],
+            aNums2 = [100, 2, 25],
+            aEvenNums = [2, 4],
+            aValues = ['a', 'b', 'c', 3, 4];
+
+        var aDoubleNums = [2, 4, 6, 8, 10],
+            aLetters = ['a', 'b', 'c'],
+            vSum = 15,
+            vAverage = 3,
+            vDivLeft = 2,
+            vDivRight = 0.125;
+
+        assert.deepEqual(doubleAll(aNums), aDoubleNums, "Doubled numbers with _.map");
+        assert.strictEqual(sumArray(aNums), vSum, "Sum numbers with _.map");
+        assert.strictEqual(averageArray(aNums), vAverage, "Average numbers with _.reduce");
+        assert.deepEqual(onlyEven(aNums), aEvenNums, "Only even numbers with _.filter");
+        assert.strictEqual(divLeft(aNums2), vDivLeft, "Division left with _.reduce");
+        assert.strictEqual(divRight(aNums2), vDivRight, "Division right with _.reduceRight");
+
+        assert.strictEqual(T(), true, "The function T returns true");
+        assert.strictEqual(F(), false, "The function F returns false");
+        
+        assert.strictEqual(allOf(), true, "allOf returns true without arguments");
+        assert.strictEqual(allOf(T, T), true, "Twice T function is true");
+        assert.strictEqual(allOf(T, T, T, F), false, "Three true and one false is false");
+
+        assert.strictEqual(anyOf(), false, "anyOf returns false without arguments");
+        assert.strictEqual(anyOf(T, T), true, "Twice T function is true");
+        assert.strictEqual(anyOf(T, T, T, F), true, "Three true and one false is true");
+        assert.strictEqual(anyOf(F, F, F, T), true, "Three false and one true is true");
+        assert.strictEqual(anyOf(F, F), false, "Twice false is false");
+
+        assert.deepEqual(find(aValues, _.isNumber), 3, "Found the first number in array");
+        assert.deepEqual(reject(aValues, _.isNumber), aLetters, "Found all non numbers in the array");
+        assert.deepEqual(_.filter(aValues, complement(_.isNumber)), aLetters, "Found all non numbers in the array with the complement of _.isNumber");
+
+        assert.strictEqual(all(aNums, _.isNumber), true, "All values are numbers");
+        assert.strictEqual(any(aValues, _.isNumber), true, "Some values are numbers");
+        assert.strictEqual(any(aLetters, _.isNumber), false, "No value is a number");
+        assert.strictEqual(any(aLetters, complement(_.isNumber)), true, "No value is a number");
+
+
+    });
+    </script>
+</body>
+
+</html>
